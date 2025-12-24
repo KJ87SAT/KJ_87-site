@@ -154,6 +154,44 @@ h2{
   box-shadow:0 12px 32px rgba(56,189,248,.35);
 }
 
+.link-btn {
+  position: relative;
+}
+
+.link-btn .arrow {
+  position: absolute;
+  right: 18px;
+  opacity: 0;
+  transform: translate(-4px, -4px);
+  transition: .3s ease;
+  font-size: .9rem;
+}
+
+.link-btn:hover .arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* サービス別アクセント */
+.link-btn.github:hover {
+  box-shadow: 0 10px 30px rgba(99,102,241,.4);
+}
+
+.link-btn.discord:hover {
+  box-shadow: 0 10px 30px rgba(88,101,242,.4);
+}
+
+.link-btn.twitter:hover {
+  box-shadow: 0 10px 30px rgba(56,189,248,.4);
+}
+
+/* キーボード操作 */
+.link-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+
 footer{
   text-align:center;
   padding:40px;
@@ -164,6 +202,121 @@ footer{
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important}
 }
+
+/* ===== News (Readable Ticker) ===== */
+.news {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+}
+
+.news-box {
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+/* 固定ラベル */
+.news-label {
+  padding: 14px 18px;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--accent);
+  border-right: 1px solid var(--border);
+  background: rgba(0,0,0,.25);
+  white-space: nowrap;
+}
+
+/* 流れる部分 */
+.news-inner {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* フェード */
+.news-inner::before,
+.news-inner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.news-inner::before {
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(11,15,25,1),
+    rgba(11,15,25,0)
+  );
+}
+
+.news-inner::after {
+  right: 0;
+  background: linear-gradient(
+    -90deg,
+    rgba(11,15,25,1),
+    rgba(11,15,25,0)
+  );
+}
+
+.news-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 0;
+  white-space: nowrap;
+  animation: ticker 30s linear infinite;
+}
+
+.news-track span {
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.sep {
+  opacity: .4;
+}
+
+/* hoverで停止 */
+.news-box:hover .news-track {
+  animation-play-state: paused;
+}
+
+/* animation */
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* motion配慮 */
+@media (prefers-reduced-motion: reduce) {
+  .news-track {
+    animation: none;
+  }
+}
+
+
+/* motion配慮 */
+@media (prefers-reduced-motion: reduce) {
+  .news-track {
+    animation: none;
+  }
+}
+
 </style>
 </head>
 
@@ -177,6 +330,30 @@ footer{
 </header>
 
 <main>
+  <section class="news">
+  <div class="news-box">
+    <div class="news-label">NEWS</div>
+
+    <div class="news-inner">
+      <div class="news-track">
+        <span>ポートフォリオを更新しました</span>
+        <span class="sep">•</span>
+        <span>Discord BOT 開発のご相談受付中</span>
+        <span class="sep">•</span>
+        <span>Web制作案件対応可能です</span>
+
+        <!-- 複製 -->
+        <span>ポートフォリオを更新しました</span>
+        <span class="sep">•</span>
+        <span>Discord BOT 開発のご相談受付中</span>
+        <span class="sep">•</span>
+        <span>Web制作案件対応可能です</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section>
   <h2>About</h2>
   <p class="typing-text">
@@ -204,12 +381,46 @@ footer{
 
 <section>
   <h2>Links</h2>
+
   <div class="links">
-    <a class="link-btn"><i class="fa-brands fa-github"></i> GitHub</a>
-    <a class="link-btn"><i class="fa-brands fa-discord"></i> Discord</a>
-    <a class="link-btn"><i class="fa-brands fa-x-twitter"></i> X</a>
+    <a
+      href="https://github.com/KJ_87"
+      target="_blank"
+      rel="noopener"
+      class="link-btn github"
+      aria-label="GitHub Profile"
+    >
+      <i class="fa-brands fa-github icon"></i>
+      <span class="label">GitHub</span>
+      <span class="arrow">↗</span>
+    </a>
+
+    <a
+      href="https://discord.gg/XXXXX"
+      target="_blank"
+      rel="noopener"
+      class="link-btn discord"
+      aria-label="Discord Server"
+    >
+      <i class="fa-brands fa-discord icon"></i>
+      <span class="label">Discord</span>
+      <span class="arrow">↗</span>
+    </a>
+
+    <a
+      href="https://x.com/KJ_87"
+      target="_blank"
+      rel="noopener"
+      class="link-btn twitter"
+      aria-label="X (Twitter)"
+    >
+      <i class="fa-brands fa-x-twitter icon"></i>
+      <span class="label">X (Twitter)</span>
+      <span class="arrow">↗</span>
+    </a>
   </div>
 </section>
+
 </main>
 
 <footer>© 2025 KJ_87</footer>
@@ -239,4 +450,3 @@ setInterval(()=>{
 
 </body>
 </html>
-
