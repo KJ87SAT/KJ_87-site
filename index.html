@@ -1,1 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile | KJ_87</title>
+
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+:root {
+  --bg:#0b0f19;
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.14);
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+  --accent:#38bdf8;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Inter,"Hiragino Kaku Gothic ProN",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ===== 背景パララックス ===== */
+.bg {
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(600px 300px at var(--x) var(--y), #38bdf8aa, transparent 60%),
+    radial-gradient(800px 400px at 90% 10%, #1e293b, transparent),
+    var(--bg);
+  z-index:-1;
+  transition:.2s;
+}
+
+/* ===== Header ===== */
+header{
+  max-width:1100px;
+  margin:auto;
+  padding:80px 24px;
+  display:grid;
+  gap:32px;
+  text-align:center;
+}
+
+.avatar{
+  width:130px;
+  height:130px;
+  border-radius:26px;
+  border:1px solid var(--border);
+  object-fit:cover;
+  margin:auto;
+}
+
+h1{
+  font-size:2.5rem;
+  letter-spacing:.05em;
+}
+
+.typing{
+  color:var(--muted);
+  min-height:1.5em;
+}
+
+/* ===== Main ===== */
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:0 24px 100px;
+  display:grid;
+  gap:32px;
+}
+
+section{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:32px;
+  backdrop-filter:blur(16px);
+  transform:translateY(40px);
+  opacity:0;
+  transition:.8s ease;
+}
+
+section.show{
+  transform:none;
+  opacity:1;
+}
+
+h2{
+  margin-bottom:16px;
+}
+
+/* ===== Skills ===== */
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.skill{
+  padding:8px 16px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  border:1px solid var(--border);
+  transition:.3s;
+}
+
+.skill:hover{
+  transform:translateY(-4px);
+}
+
+/* ===== Projects ===== */
+.project{
+  padding:16px;
+  border-radius:16px;
+  background:rgba(0,0,0,.25);
+  border:1px solid var(--border);
+  transition:.4s;
+}
+
+.project:hover{
+  transform:scale(1.03);
+}
+
+/* ===== Links ===== */
+.links{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+}
+
+.link-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+  border-radius:18px;
+  text-decoration:none;
+  color:var(--text);
+  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));
+  border:1px solid var(--border);
+  transition:.3s;
+}
+
+.link-btn:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 32px rgba(56,189,248,.35);
+}
+
+footer{
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
+}
+
+/* motion配慮 */
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<div class="bg"></div>
+
+<header>
+  <img src="profile-image.webp" class="avatar" />
+  <h1>KJ_87</h1>
+  <div class="typing" id="typing"></div>
+</header>
+
+<main>
+<section>
+  <h2>About</h2>
+  <p class="typing-text">
+    Web制作 / Discord BOT開発 / サーバー管理を行っています。
+  </p>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="skill">JavaScript</div>
+    <div class="skill">Node.js</div>
+    <div class="skill">Discord.js</div>
+    <div class="skill">Python</div>
+    <div class="skill">HTML / CSS</div>
+  </div>
+</section>
+
+<section>
+  <h2>Projects</h2>
+  <div class="project">
+    Discordサーバー管理・BOT作成など
+  </div>
+</section>
+
+<section>
+  <h2>Links</h2>
+  <div class="links">
+    <a class="link-btn"><i class="fa-brands fa-github"></i> GitHub</a>
+    <a class="link-btn"><i class="fa-brands fa-discord"></i> Discord</a>
+    <a class="link-btn"><i class="fa-brands fa-x-twitter"></i> X</a>
+  </div>
+</section>
+</main>
+
+<footer>© 2025 KJ_87</footer>
+
+<script>
+// ===== スクロール表示 =====
+const observer=new IntersectionObserver(e=>{
+  e.forEach(v=>v.isIntersecting&&v.target.classList.add("show"))
+},{threshold:.15});
+
+document.querySelectorAll("section").forEach(s=>observer.observe(s));
+
+// ===== マウス背景 =====
+document.addEventListener("mousemove",e=>{
+  document.documentElement.style.setProperty("--x",`${e.clientX}px`);
+  document.documentElement.style.setProperty("--y",`${e.clientY}px`);
+});
+
+// ===== タイピング =====
+const text="Web Developer / Discord BOT Engineer / Administrator";
+let i=0;
+setInterval(()=>{
+  document.getElementById("typing").textContent=text.slice(0,i++);
+  if(i>text.length)i=0;
+},120);
+</script>
+
+</body>
+</html>
 
